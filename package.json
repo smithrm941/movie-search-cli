@@ -1,0 +1,16 @@
+{
+  "name": "httpnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "get_request_examples.js",
+  "scripts": {
+    "test": "mocha -- ./movie-search-test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.0.2",
+    "cheerio": "^1.0.0-rc.1",
+    "mocha": "^3.4.2"
+  }
+}
