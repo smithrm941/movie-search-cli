@@ -2,8 +2,6 @@ var expect = require('chai').expect;
 var getMovieNames = require('./movie-search-cli.js');
 const http = require('http')
 
-
-
 describe('getMovieNames', function() {
   it("returns an array of movie names", function(done){
     http.get({
@@ -15,7 +13,6 @@ describe('getMovieNames', function() {
         res.on('end', () => {
         expect(getMovieNames(html)).to.be.an('array');
         done();
-        // getMovieNames(html)
         })
       })
   })

@@ -1,9 +1,8 @@
 var http = require('http')
-var req = http.request({
+http.get({
   hostname: 'api.openweathermap.org',
   path: '/data/2.5/weather?q=' + encodeURIComponent(process.argv[2]) + '&mode=json&appid=bebb75726c4ad7fd70673963bf37adce',
   port: 80,
-  method: 'GET'
 }, (res) => {
   var str = ''
 
@@ -17,5 +16,3 @@ var req = http.request({
     console.log("Temperature in Farenheit:", tempInFarenheit.toFixed(2));
   })
 })
-
-req.end()
