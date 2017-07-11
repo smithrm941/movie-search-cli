@@ -1,16 +1,20 @@
 const cheerio = require('cheerio')
 const http = require('http')
+const searchString = process.argv.slice(2).join('+')
 
-http.get({
-    host: 'www.imdb.com',
-    path: '/find?ref_=nv_sr_fn&q=' + process.argv.slice(2).join('+') + '&s=all'
-  }, (res) => {
-    var html = ''
-    res.on('data', (chunk) => {html += chunk})
-    res.on('end', () => {
-    getMovieNames(html)
+function searchMovies(searchString, callback) {
+  http.get({
+      host: 'www.imdb.com',
+      path: '/find?ref_=nv_sr_fn&q=' + searchString + '&s=all'
+    }, (res) => {
+      var html = ''
+      res.on('data', (chunk) => {html += chunk})
+      res.on('end', () => {
+      const movieNames = getMovieNames(html)
+      callback(movieNames)
+      })
     })
-  })
+}
 
 function getMovieNames(html) {
   const $ = cheerio.load(html) //mimicks the jQuery convention
@@ -23,4 +27,8 @@ function getMovieNames(html) {
   return movieNames;
 }
 
-module.exports = getMovieNames;
+searchMovies(searchString, getMovieNames)
+
+module.exports = {getMovieNames,
+  searchMovies,
+}
